@@ -5,11 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
 using System.Web.Configuration;
+using System.Threading;
 
 namespace AwesomeWebApp.Controllers
 {
     public class StagingSlotsController : Controller
     {
+        // static counter for page access
+        static int page_access = 0;
+
         // GET: StagingSlots
         public ActionResult Index()
         {
@@ -80,6 +84,10 @@ namespace AwesomeWebApp.Controllers
                 {
                     ViewBag.stickSetting = WebConfigurationManager.AppSettings["STICKY_SETTING"].ToString();
                 }
+
+                // get sticky setting
+                int pageAccessCount = Interlocked.Increment(ref page_access);
+                ViewBag.accessCount = pageAccessCount;
 
                 // set default crash rate for display
                 ViewBag.realCrashRate = 0.0;
