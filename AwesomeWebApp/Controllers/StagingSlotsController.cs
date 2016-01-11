@@ -69,10 +69,16 @@ namespace AwesomeWebApp.Controllers
                     ViewBag.databaseConnectionString = WebConfigurationManager.ConnectionStrings["AzureWebJobsDashboard"].ConnectionString;
                 }
 
-                // get none sticky setting
-                if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["NONE_STICK_SETTING"]))
+                // get non sticky setting
+                if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["NON_STICKY_SETTING"]))
                 {
-                    ViewBag.noneStickSetting = WebConfigurationManager.AppSettings["NONE_STICK_SETTING"].ToString();
+                    ViewBag.noneStickSetting = WebConfigurationManager.AppSettings["NON_STICKY_SETTING"].ToString();
+                }
+
+                // get sticky setting
+                if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["STICKY_SETTING"]))
+                {
+                    ViewBag.stickSetting = WebConfigurationManager.AppSettings["STICKY_SETTING"].ToString();
                 }
 
                 // set default crash rate for display
