@@ -10,10 +10,6 @@
     <table border="1">
         <tbody>
             <tr>
-                <td>Crash Rate</td>
-                <td>@ViewBag.crashRate</td>
-            </tr>
-            <tr>
                 <td>Connection String</td>
                 <td>@ViewBag.databaseConnectionString</td>
             </tr>
@@ -28,10 +24,8 @@
         </tbody>
     </table>
 <br />
-    <div>Random crash value = @ViewBag.realCrashRate  |  @Html.ActionLink("Try crash my app", "crashapp", "StagingSlots", null, null)  |  @Html.ActionLink("Increase chance of crash", "crashapp", "StagingSlots", new {crashrate = 0.6 },null)</div>
-    <br />
     <div>Page access count = @ViewBag.accessCount</div>
     <br />
-    <div>version 0.3.3</div>
+    <div>version 0.1.0</div>
 </div>
 <br />

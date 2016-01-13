@@ -67,8 +67,8 @@ namespace AwesomeWebApp.Controllers
                     ViewBag.crashRate = crashRate;
                 }
 
-                // get connection string for DB1 (sticky per slot)
-                if (WebConfigurationManager.ConnectionStrings["AzureWebJobsDashboard"] != null)
+                // get connection string for DB (sticky per slot)
+                if (WebConfigurationManager.ConnectionStrings["DBCONNECTION"] != null)
                 {
                     ViewBag.databaseConnectionString = WebConfigurationManager.ConnectionStrings["AzureWebJobsDashboard"].ConnectionString;
                 }
