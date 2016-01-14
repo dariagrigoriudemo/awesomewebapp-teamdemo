@@ -5,11 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
 using System.Web.Configuration;
+using System.Threading;
 
 namespace AwesomeWebApp.Controllers
 {
     public class StagingSlotsController : Controller
     {
+        // static counter for page access
+        static int page_access = 0;
+
         // GET: StagingSlots
         public ActionResult Index()
         {
@@ -63,17 +67,27 @@ namespace AwesomeWebApp.Controllers
                     ViewBag.crashRate = crashRate;
                 }
 
-                // get connection string for DB1 (sticky per slot)
-                if (WebConfigurationManager.ConnectionStrings["AzureWebJobsDashboard"] != null)
+                // get connection string for DB (sticky per slot)
+                if (WebConfigurationManager.ConnectionStrings["DBCONNECTION"] != null)
                 {
-                    ViewBag.databaseConnectionString = WebConfigurationManager.ConnectionStrings["AzureWebJobsDashboard"].ConnectionString;
+                    ViewBag.databaseConnectionString = WebConfigurationManager.ConnectionStrings["DBCONNECTION"].ConnectionString;
                 }
 
-                // get none sticky setting
-                if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["NONE_STICK_SETTING"]))
+                // get non sticky setting
+                if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["NON_STICKY_SETTING"]))
                 {
-                    ViewBag.noneStickSetting = WebConfigurationManager.AppSettings["NONE_STICK_SETTING"].ToString();
+                    ViewBag.noneStickSetting = WebConfigurationManager.AppSettings["NON_STICKY_SETTING"].ToString();
                 }
+
+                // get sticky setting
+                if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["STICKY_SETTING"]))
+                {
+                    ViewBag.stickSetting = WebConfigurationManager.AppSettings["STICKY_SETTING"].ToString();
+                }
+
+                // get sticky setting
+                int pageAccessCount = Interlocked.Increment(ref page_access);
+                ViewBag.accessCount = pageAccessCount;
 
                 // set default crash rate for display
                 ViewBag.realCrashRate = 0.0;
